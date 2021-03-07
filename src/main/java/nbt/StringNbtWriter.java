@@ -154,7 +154,7 @@ public class StringNbtWriter extends AbstractNBTValueVisitor implements Closeabl
         
         private static final Pattern SIMPLE_KEY = Pattern.compile("[A-Za-z0-9._+-]+");
         
-        private boolean notFirst;
+        private boolean first = true;
         
         public CompoundWriter(Writer data, List<IOException> suppressed) {
             super(data, suppressed);
@@ -164,17 +164,17 @@ public class StringNbtWriter extends AbstractNBTValueVisitor implements Closeabl
         public NBTValueVisitor visitValue(String key) {
             run(() -> {
                 String escapedKey = SIMPLE_KEY.matcher(key).matches() ? key : StringEntry.escape(key);
-                this.dataOut.write(this.notFirst ? "," : "{");
+                this.dataOut.write(this.first ? "{" : ",");
                 this.dataOut.write(escapedKey);
                 this.dataOut.write(":");
-                this.notFirst = true;
+                this.first = false;
             });
             return new ValueWriter(this.dataOut, this.supressedExceptions);
         }
         
         @Override
         public void visitEnd() {
-            run(() -> this.dataOut.write(this.notFirst ? "}" : "{}"));
+            run(() -> this.dataOut.write(this.first ? "{}" : "}"));
         }
     }
 }
