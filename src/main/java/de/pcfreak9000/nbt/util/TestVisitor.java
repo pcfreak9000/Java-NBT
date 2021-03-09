@@ -78,14 +78,17 @@ public class TestVisitor implements NBTValueVisitor {
     
     @Override
     public void visitByteArray(ImmutableBytes ar) {
+        System.out.println(ar.toString());
     }
     
     @Override
     public void visitIntArray(ImmutableInts ar) {
+        System.out.println(ar.toString());
     }
     
     @Override
     public void visitLongArray(ImmutableLongs ar) {
+        System.out.println(ar.toString());
     }
     
     @Override

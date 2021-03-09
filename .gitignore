@@ -79,3 +79,9 @@ hs_err_pid*
 #Stuff
 test.dat
 tmp.dat
+
+src/main/java/de/pcfreak9000/nbt/Main.java
+
+level.dat
+
+servers.dat
