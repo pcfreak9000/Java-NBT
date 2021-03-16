@@ -1,5 +1,7 @@
 package de.pcfreak9000.nbt;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
@@ -15,6 +17,18 @@ import de.pcfreak9000.nbt.visitor.NBTValueVisitor;
 public class TagReader {
     
     private TagReader() {
+    }
+    
+    public static void toCompressedBinaryNBTFile(File target, NBTTag nbt) throws IOException {
+        try (CompressedNbtWriter writer = new CompressedNbtWriter(new FileOutputStream(target))) {
+            applyVisitor(writer, nbt);
+        }
+    }
+    
+    public static void toBinaryNBTFile(File target, NBTTag tag) throws IOException {
+        try (NbtWriter writer = new NbtWriter(new FileOutputStream(target))) {
+            applyVisitor(writer, tag);
+        }
     }
     
     public static void applyVisitor(NBTValueVisitor visitor, NBTTag start) {

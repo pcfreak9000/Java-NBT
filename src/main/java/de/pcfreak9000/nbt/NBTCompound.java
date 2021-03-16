@@ -119,12 +119,60 @@ public class NBTCompound extends NBTTag {
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
+    public NBTCompound getNodeOrDefault(String name, NBTCompound def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTCompound) {
+            return (NBTCompound) de;
+        }
+        if (de == null) {
+            return def;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
     public String getString(String name) {
         checkNameValid(name);
         NBTTag de = entries.get(name);
         if (de instanceof NBTTag.StringEntry) {
             NBTTag.StringEntry se = (NBTTag.StringEntry) de;
             return se.getString();
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public String getStringOrDefault(String name, String def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.StringEntry) {
+            NBTTag.StringEntry se = (NBTTag.StringEntry) de;
+            return se.getString();
+        }
+        if (de == null) {
+            return def;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public byte getByte(String name) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.ByteEntry) {
+            NBTTag.ByteEntry ie = (NBTTag.ByteEntry) de;
+            return ie.getByte();
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public byte getByteOrDefault(String name, byte def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.ByteEntry) {
+            NBTTag.ByteEntry ie = (NBTTag.ByteEntry) de;
+            return ie.getByte();
+        }
+        if (de == null) {
+            return def;
         }
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
@@ -137,6 +185,43 @@ public class NBTCompound extends NBTTag {
             return ie.getInt();
         }
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public int getIntOrDefault(String name, int def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.IntEntry) {
+            NBTTag.IntEntry ie = (NBTTag.IntEntry) de;
+            return ie.getInt();
+        }
+        if (de == null) {
+            return def;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public long getLong(String name) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.LongEntry) {
+            NBTTag.LongEntry le = (NBTTag.LongEntry) de;
+            return le.getLong();
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public long getLongOrDefault(String name, long def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.LongEntry) {
+            NBTTag.LongEntry le = (NBTTag.LongEntry) de;
+            return le.getLong();
+        }
+        if (de == null) {
+            return def;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        
     }
     
     public ImmutableBytes getByteArray(String string) {
@@ -173,7 +258,7 @@ public class NBTCompound extends NBTTag {
         return entriesImmutable.entrySet().iterator();
     }
     
-    private static final String EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT = "Entry doesnt exist or is not of the requested type";
+    private static final String EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT = "Entry does not exist or is not of the requested type";
     
     private void checkNameValid(String name) {
         Objects.requireNonNull(name);
