@@ -21,9 +21,6 @@ import de.pcfreak9000.nbt.NbtReader;
 import de.pcfreak9000.nbt.NbtWriter;
 import de.pcfreak9000.nbt.StringNbtWriter;
 import de.pcfreak9000.nbt.TagWriter;
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
 
 public class LibraryTest {
     
@@ -42,7 +39,7 @@ public class LibraryTest {
     @Test
     public void writeByteArrayTest() throws Exception {
         NBTCompound comp = new NBTCompound();
-        comp.putByteArray("bytes", new ImmutableBytes(TESTBYTES));
+        comp.putByteArray("bytes", TESTBYTES);
         try (NbtWriter writer = new NbtWriter(new FileOutputStream("tmp.dat"))) {
             comp.accept(writer);
         }
@@ -50,13 +47,13 @@ public class LibraryTest {
         try (NbtReader reader = new NbtReader(new FileInputStream("tmp.dat"))) {
             read = reader.toCompoundTag();
         }
-        assertArrayEquals(TESTBYTES, read.getByteArray("bytes").arrayCopy());
+        assertArrayEquals(TESTBYTES, read.getByteArray("bytes"));
     }
     
     @Test
     public void writeIntArrayTest() throws Exception {
         NBTCompound comp = new NBTCompound();
-        comp.putIntArray("ints", new ImmutableInts(TESTINTS));
+        comp.putIntArray("ints", TESTINTS);
         try (NbtWriter writer = new NbtWriter(new FileOutputStream("tmp.dat"))) {
             comp.accept(writer);
         }
@@ -64,13 +61,13 @@ public class LibraryTest {
         try (NbtReader reader = new NbtReader(new FileInputStream("tmp.dat"))) {
             read = reader.toCompoundTag();
         }
-        assertArrayEquals(TESTINTS, read.getIntArray("ints").arrayCopy());
+        assertArrayEquals(TESTINTS, read.getIntArray("ints"));
     }
     
     @Test
     public void writeLongArrayTest() throws Exception {
         NBTCompound comp = new NBTCompound();
-        comp.putLongArray("longs", new ImmutableLongs(TESTLONGS));
+        comp.putLongArray("longs", TESTLONGS);
         try (NbtWriter writer = new NbtWriter(new FileOutputStream("tmp.dat"))) {
             comp.accept(writer);
         }
@@ -78,40 +75,40 @@ public class LibraryTest {
         try (NbtReader reader = new NbtReader(new FileInputStream("tmp.dat"))) {
             read = reader.toCompoundTag();
         }
-        assertArrayEquals(TESTLONGS, read.getLongArray("longs").arrayCopy());
+        assertArrayEquals(TESTLONGS, read.getLongArray("longs"));
     }
     
     @Test
     public void longArrayTest() throws Exception {
         NBTCompound comp = new NBTCompound();
-        comp.putLongArray("longs", new ImmutableLongs(TESTLONGS));
+        comp.putLongArray("longs", TESTLONGS);
         TagWriter writer = new TagWriter();
         comp.accept(writer);
         NBTCompound out = writer.getCompound();
-        ImmutableLongs bytes = out.getLongArray("longs");
-        assertArrayEquals(TESTLONGS, bytes.arrayCopy());
+        long[] bytes = out.getLongArray("longs");
+        assertArrayEquals(TESTLONGS, bytes);
     }
     
     @Test
     public void intArrayTest() throws Exception {
         NBTCompound comp = new NBTCompound();
-        comp.putIntArray("ints", new ImmutableInts(TESTINTS));
+        comp.putIntArray("ints", TESTINTS);
         TagWriter writer = new TagWriter();
         comp.accept(writer);
         NBTCompound out = writer.getCompound();
-        ImmutableInts bytes = out.getIntArray("ints");
-        assertArrayEquals(TESTINTS, bytes.arrayCopy());
+        int[] bytes = out.getIntArray("ints");
+        assertArrayEquals(TESTINTS, bytes);
     }
     
     @Test
     public void byteArrayTest() throws Exception {
         NBTCompound comp = new NBTCompound();
-        comp.putByteArray("byteArray", new ImmutableBytes(TESTBYTES));
+        comp.putByteArray("byteArray", TESTBYTES);
         TagWriter writer = new TagWriter();
         comp.accept(writer);
         NBTCompound out = writer.getCompound();
-        ImmutableBytes bytes = out.getByteArray("byteArray");
-        assertArrayEquals(TESTBYTES, bytes.arrayCopy());
+        byte[] bytes = out.getByteArray("byteArray");
+        assertArrayEquals(TESTBYTES, bytes);
     }
     
     @Test

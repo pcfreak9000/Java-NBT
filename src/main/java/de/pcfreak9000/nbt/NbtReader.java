@@ -14,9 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import de.pcfreak9000.nbt.util.ContextStackEvaluator;
 import de.pcfreak9000.nbt.util.ContextStackEvaluator.ContextType;
 import de.pcfreak9000.nbt.util.ContextStackEvaluator.IContext;
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
 import de.pcfreak9000.nbt.visitor.NBTCompoundVisitor;
 import de.pcfreak9000.nbt.visitor.NBTListVisitor;
 import de.pcfreak9000.nbt.visitor.NBTValueVisitor;
@@ -122,7 +119,7 @@ public class NbtReader implements Closeable {
                 if (len >= 0 && len <= 0x7FFFFFF7) {
                     byte[] bytes = new byte[len];
                     stream.readFully(bytes);
-                    valueVisitor.visitByteArray(new ImmutableBytes(bytes));
+                    valueVisitor.visitByteArray(bytes);
                     break;
                 }
                 throw new IOException("Size exceeds " + 0x7FFFFFF7 + ", got " + (len & 0xFFFFFFFFL));
@@ -143,7 +140,7 @@ public class NbtReader implements Closeable {
                         fillIndex += remaining;
                         buffer.clear();
                     }
-                    valueVisitor.visitIntArray(new ImmutableInts(ints));
+                    valueVisitor.visitIntArray(ints);
                     break;
                 }
                 throw new IOException("Size exceeds " + 0x7FFFFFF7 + ", got " + (len & 0xFFFFFFFFL));
@@ -164,7 +161,7 @@ public class NbtReader implements Closeable {
                         fillIndex += remaining;
                         buffer.clear();
                     }
-                    valueVisitor.visitLongArray(new ImmutableLongs(longs));
+                    valueVisitor.visitLongArray(longs);
                     break;
                 }
                 throw new IOException("Size exceeds " + 0x7FFFFFF7 + ", got " + (len & 0xFFFFFFFFL));

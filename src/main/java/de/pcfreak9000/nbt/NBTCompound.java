@@ -6,10 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
-
 public class NBTCompound extends NBTTag {
     
     private static final String NAME_REGEX = "^[\\w\\d][\\w\\d ]*$";
@@ -89,21 +85,21 @@ public class NBTCompound extends NBTTag {
         entries.put(name, new NBTTag.StringEntry(string));
     }
     
-    public void putByteArray(String name, ImmutableBytes immutableBytes) {
+    public void putByteArray(String name, byte[] immutableBytes) {
         checkNameValid(name);
         checkNameExists(name);
         Objects.requireNonNull(immutableBytes);
         entries.put(name, new ByteArrayEntry(immutableBytes));
     }
     
-    public void putIntArray(String name, ImmutableInts immutableints) {
+    public void putIntArray(String name, int[] immutableints) {
         checkNameValid(name);
         checkNameExists(name);
         Objects.requireNonNull(immutableints);
         entries.put(name, new IntArrayEntry(immutableints));
     }
     
-    public void putLongArray(String name, ImmutableLongs immutablelongs) {
+    public void putLongArray(String name, long[] immutablelongs) {
         checkNameValid(name);
         checkNameExists(name);
         Objects.requireNonNull(immutablelongs);
@@ -224,7 +220,7 @@ public class NBTCompound extends NBTTag {
         
     }
     
-    public ImmutableBytes getByteArray(String string) {
+    public byte[] getByteArray(String string) {
         checkNameValid(string);
         NBTTag t = entries.get(string);
         if (t instanceof ByteArrayEntry) {
@@ -234,7 +230,7 @@ public class NBTCompound extends NBTTag {
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
-    public ImmutableInts getIntArray(String string) {
+    public int[] getIntArray(String string) {
         checkNameValid(string);
         NBTTag t = entries.get(string);
         if (t instanceof IntArrayEntry) {
@@ -244,7 +240,7 @@ public class NBTCompound extends NBTTag {
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
-    public ImmutableLongs getLongArray(String string) {
+    public long[] getLongArray(String string) {
         checkNameValid(string);
         NBTTag t = entries.get(string);
         if (t instanceof LongArrayEntry) {

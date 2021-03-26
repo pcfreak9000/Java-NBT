@@ -11,9 +11,6 @@ import de.pcfreak9000.nbt.NBTTag.LongArrayEntry;
 import de.pcfreak9000.nbt.NBTTag.LongEntry;
 import de.pcfreak9000.nbt.NBTTag.ShortEntry;
 import de.pcfreak9000.nbt.NBTTag.StringEntry;
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
 import de.pcfreak9000.nbt.visitor.NBTCompoundVisitor;
 import de.pcfreak9000.nbt.visitor.NBTListVisitor;
 import de.pcfreak9000.nbt.visitor.NBTValueVisitor;
@@ -96,17 +93,17 @@ public class TagWriter implements NBTValueVisitor {
     }
     
     @Override
-    public void visitByteArray(ImmutableBytes ar) {
+    public void visitByteArray(byte[] ar) {
         set(new ByteArrayEntry(ar));
     }
     
     @Override
-    public void visitIntArray(ImmutableInts ar) {
+    public void visitIntArray(int[] ar) {
         set(new IntArrayEntry(ar));
     }
     
     @Override
-    public void visitLongArray(ImmutableLongs ar) {
+    public void visitLongArray(long[] ar) {
         set(new LongArrayEntry(ar));
     }
     

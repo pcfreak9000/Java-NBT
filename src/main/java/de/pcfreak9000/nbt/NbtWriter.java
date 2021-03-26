@@ -10,12 +10,10 @@ import java.nio.IntBuffer;
 import java.nio.LongBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.pcfreak9000.nbt.util.AbstractWriterHelper;
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
 import de.pcfreak9000.nbt.visitor.AbstractNBTValueVisitor;
 import de.pcfreak9000.nbt.visitor.NBTCompoundVisitor;
 import de.pcfreak9000.nbt.visitor.NBTListVisitor;
@@ -158,16 +156,16 @@ public class NbtWriter extends AbstractNBTValueVisitor implements Closeable, Flu
         }
         
         @Override
-        public void visitByteArray(ImmutableBytes ar) {
+        public void visitByteArray(byte[] ar) {
             run(() -> {
                 writePrefix(NBTType.ByteArray);
-                int length = ar.size();
+                int length = ar.length;
                 this.dataOut.writeInt(length);
                 byte[] bufferArray = new byte[TMP_BUFFER_LENGTH];
                 ByteBuffer buffer = ByteBuffer.wrap(bufferArray);
                 for (int bufferLimit = buffer.limit(), offset = 0,
                         bufferStep; (bufferStep = Math.min(bufferLimit, length - offset)) > 0; offset += bufferStep) {
-                    buffer.put(ar.arrayCopyOfRange(offset, bufferStep));
+                    buffer.put(Arrays.copyOfRange(ar, offset, offset + bufferStep));
                     this.dataOut.write(bufferArray, 0, bufferArray.length * bufferStep / bufferLimit);
                     buffer.rewind();
                 }
@@ -175,16 +173,16 @@ public class NbtWriter extends AbstractNBTValueVisitor implements Closeable, Flu
         }
         
         @Override
-        public void visitIntArray(ImmutableInts ar) {
+        public void visitIntArray(int[] ar) {
             run(() -> {
                 writePrefix(NBTType.IntArray);
-                int length = ar.size();
+                int length = ar.length;
                 this.dataOut.writeInt(length);
                 byte[] bufferArray = new byte[TMP_BUFFER_LENGTH];
                 IntBuffer buffer = ByteBuffer.wrap(bufferArray).asIntBuffer();
                 for (int bufferLimit = buffer.limit(), offset = 0,
                         bufferStep; (bufferStep = Math.min(bufferLimit, length - offset)) > 0; offset += bufferStep) {
-                    buffer.put(ar.arrayCopyOfRange(offset, bufferStep));
+                    buffer.put(Arrays.copyOfRange(ar, offset, offset + bufferStep));
                     this.dataOut.write(bufferArray, 0, bufferArray.length * bufferStep / bufferLimit);
                     buffer.rewind();
                 }
@@ -192,21 +190,22 @@ public class NbtWriter extends AbstractNBTValueVisitor implements Closeable, Flu
         }
         
         @Override
-        public void visitLongArray(ImmutableLongs ar) {
+        public void visitLongArray(long[] ar) {
             run(() -> {
                 writePrefix(NBTType.LongArray);
-                int length = ar.size();
+                int length = ar.length;
                 this.dataOut.writeInt(length);
                 byte[] bufferArray = new byte[TMP_BUFFER_LENGTH];
                 LongBuffer buffer = ByteBuffer.wrap(bufferArray).asLongBuffer();
                 for (int bufferLimit = buffer.limit(), offset = 0,
                         bufferStep; (bufferStep = Math.min(bufferLimit, length - offset)) > 0; offset += bufferStep) {
-                    buffer.put(ar.arrayCopyOfRange(offset, bufferStep));
+                    buffer.put(Arrays.copyOfRange(ar, offset, offset + bufferStep));
                     this.dataOut.write(bufferArray, 0, bufferArray.length * bufferStep / bufferLimit);
                     buffer.rewind();
                 }
             });
         }
+        
     }
     
     private static class ListWriter extends AbstractWriterHelper<DataOutputStream> implements NBTListVisitor {

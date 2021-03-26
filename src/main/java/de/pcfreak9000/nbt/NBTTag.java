@@ -1,8 +1,5 @@
 package de.pcfreak9000.nbt;
 
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
 import de.pcfreak9000.nbt.visitor.NBTValueVisitor;
 
 public abstract class NBTTag {
@@ -138,14 +135,14 @@ public abstract class NBTTag {
     
     public static class ByteArrayEntry extends NBTTag {
         
-        private final ImmutableBytes value;
+        private final byte[] value;
         
-        public ByteArrayEntry(ImmutableBytes value) {
+        public ByteArrayEntry(byte[] value) {
             super(NBTType.ByteArray);
             this.value = value;
         }
         
-        public ImmutableBytes getBytes() {
+        public byte[] getBytes() {
             return value;
         }
         
@@ -157,14 +154,14 @@ public abstract class NBTTag {
     
     public static class IntArrayEntry extends NBTTag {
         
-        private final ImmutableInts value;
+        private final int[] value;
         
-        public IntArrayEntry(ImmutableInts value) {
+        public IntArrayEntry(int[] value) {
             super(NBTType.IntArray);
             this.value = value;
         }
         
-        public ImmutableInts getInts() {
+        public int[] getInts() {
             return value;
         }
         
@@ -176,14 +173,14 @@ public abstract class NBTTag {
     
     public static class LongArrayEntry extends NBTTag {
         
-        private final ImmutableLongs value;
+        private final long[] value;
         
-        public LongArrayEntry(ImmutableLongs value) {
+        public LongArrayEntry(long[] value) {
             super(NBTType.LongArray);
             this.value = value;
         }
         
-        public ImmutableLongs getLongs() {
+        public long[] getLongs() {
             return value;
         }
         

@@ -1,9 +1,5 @@
 package de.pcfreak9000.nbt.visitor;
 
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
-
 public interface NBTValueVisitor {
     
     void visitEnd();
@@ -22,11 +18,11 @@ public interface NBTValueVisitor {
     
     void visitString(String s);
     
-    void visitByteArray(ImmutableBytes ar);
+    void visitByteArray(byte[] ar);
     
-    void visitIntArray(ImmutableInts ar);
+    void visitIntArray(int[] ar);
     
-    void visitLongArray(ImmutableLongs ar);
+    void visitLongArray(long[] ar);
     
     NBTCompoundVisitor visitCompound();
     

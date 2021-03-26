@@ -1,9 +1,5 @@
 package de.pcfreak9000.nbt.visitor;
 
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
-
 public class AbstractNBTValueVisitor implements NBTValueVisitor {
     
     protected final NBTValueVisitor parentVisitor;
@@ -87,21 +83,21 @@ public class AbstractNBTValueVisitor implements NBTValueVisitor {
     }
     
     @Override
-    public void visitByteArray(ImmutableBytes ar) {
+    public void visitByteArray(byte[] ar) {
         if (parentVisitor != null) {
             parentVisitor.visitByteArray(ar);
         }
     }
     
     @Override
-    public void visitIntArray(ImmutableInts ar) {
+    public void visitIntArray(int[] ar) {
         if (parentVisitor != null) {
             parentVisitor.visitIntArray(ar);
         }
     }
     
     @Override
-    public void visitLongArray(ImmutableLongs ar) {
+    public void visitLongArray(long[] ar) {
         if (parentVisitor != null) {
             parentVisitor.visitLongArray(ar);
         }

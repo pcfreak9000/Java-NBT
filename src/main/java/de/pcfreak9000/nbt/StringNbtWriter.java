@@ -10,9 +10,7 @@ import java.util.regex.Pattern;
 
 import de.pcfreak9000.nbt.NBTTag.StringEntry;
 import de.pcfreak9000.nbt.util.AbstractWriterHelper;
-import de.pcfreak9000.nbt.util.ImmutableBytes;
-import de.pcfreak9000.nbt.util.ImmutableInts;
-import de.pcfreak9000.nbt.util.ImmutableLongs;
+import de.pcfreak9000.nbt.util.ArrayUtil;
 import de.pcfreak9000.nbt.visitor.AbstractNBTValueVisitor;
 import de.pcfreak9000.nbt.visitor.NBTCompoundVisitor;
 import de.pcfreak9000.nbt.visitor.NBTListVisitor;
@@ -121,18 +119,18 @@ public class StringNbtWriter extends AbstractNBTValueVisitor implements Closeabl
         }
         
         @Override
-        public void visitByteArray(ImmutableBytes ar) {
-            run(() -> dataOut.write(ar.toString("[B;", ",", "]")));
+        public void visitByteArray(byte[] ar) {
+            run(() -> dataOut.write(ArrayUtil.toString(ar, "[B;", ",", "]")));
         }
         
         @Override
-        public void visitIntArray(ImmutableInts ar) {
-            run(() -> dataOut.write(ar.toString("[I;", ",", "]")));
+        public void visitIntArray(int[] ar) {
+            run(() -> dataOut.write(ArrayUtil.toString(ar, "[I;", ",", "]")));
         }
         
         @Override
-        public void visitLongArray(ImmutableLongs ar) {
-            run(() -> dataOut.write(ar.toString("[L;", ",", "]")));
+        public void visitLongArray(long[] ar) {
+            run(() -> dataOut.write(ArrayUtil.toString(ar, "[L;", ",", "]")));
         }
         
     }
