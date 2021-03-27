@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class NBTCompound extends NBTTag {
+public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NBTTag>> {//Hmm, really implement that?
     
     private static final String NAME_REGEX = "^[\\w\\d][\\w\\d ]*$";
     
@@ -35,7 +35,7 @@ public class NBTCompound extends NBTTag {
         this.put(name, list);
     }
     
-    void put(String name, NBTTag entry) {
+    public void put(String name, NBTTag entry) {
         checkNameValid(name);
         checkNameExists(name);
         Objects.requireNonNull(entry);
@@ -104,6 +104,24 @@ public class NBTCompound extends NBTTag {
         checkNameExists(name);
         Objects.requireNonNull(immutablelongs);
         entries.put(name, new LongArrayEntry(immutablelongs));
+    }
+    
+    public NBTTag get(String name) {
+        checkNameValid(name);
+        NBTTag tag = entries.get(name);
+        if (tag != null) {
+            return tag;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public NBTTag getOrDefault(String name, NBTTag def) {
+        checkNameValid(name);
+        NBTTag tag = entries.get(name);
+        if (tag != null) {
+            return tag;
+        }
+        return def;
     }
     
     public NBTCompound getNode(String name) {
@@ -220,6 +238,29 @@ public class NBTCompound extends NBTTag {
         
     }
     
+    public float getFloat(String name) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.FloatEntry) {
+            NBTTag.FloatEntry ie = (NBTTag.FloatEntry) de;
+            return ie.getFloat();
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public float getFloatOrDefault(String name, float def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.FloatEntry) {
+            NBTTag.FloatEntry ie = (NBTTag.FloatEntry) de;
+            return ie.getFloat();
+        }
+        if (de == null) {
+            return def;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
     public byte[] getByteArray(String string) {
         checkNameValid(string);
         NBTTag t = entries.get(string);
@@ -250,6 +291,7 @@ public class NBTCompound extends NBTTag {
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
+    @Override
     public Iterator<Map.Entry<String, NBTTag>> iterator() {
         return entriesImmutable.entrySet().iterator();
     }
