@@ -123,9 +123,9 @@ public class LibraryTest {
         nested2.putString("keyn2", "NESTED2");
         nested.putCompound("COMP2", nested2);
         NBTList list = new NBTList(NBTType.String);
-        list.add("Gurke1");
-        list.add("Gurke2");
-        list.add("Gurke3");
+        list.addString("Gurke1");
+        list.addString("Gurke2");
+        list.addString("Gurke3");
         test.putList("testList", list);
         test.putByte("byte", (byte) 12);
         test.putShort("short", (short) 123);
