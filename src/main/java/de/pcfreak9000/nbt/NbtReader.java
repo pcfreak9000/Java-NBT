@@ -49,7 +49,7 @@ public class NbtReader implements Closeable {
     public NBTCompound toCompoundTag() throws IOException {
         NBTTag tag = toTag();
         if (tag.type() != NBTType.Compound) {
-            throw new IOException("Unexpected type: "+tag.type());
+            throw new IOException("Unexpected type: " + tag.type());
         }
         return (NBTCompound) tag;
     }
@@ -171,7 +171,7 @@ public class NbtReader implements Closeable {
                 int size = stream.readInt();
                 if (type != NBTType.End || size <= 0) {
                     NBTListVisitor listVisitor = valueVisitor.visitList();
-                    listVisitor.visitType(size <= 0 ? NBTType.Byte : type);
+                    listVisitor.visitType(size <= 0 && type == NBTType.End ? NBTType.Byte : type);//Hmmm
                     listVisitor.visitLength(size);
                     return new ListContext(listVisitor, type, size);
                 }

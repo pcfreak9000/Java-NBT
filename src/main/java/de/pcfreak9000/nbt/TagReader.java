@@ -104,7 +104,7 @@ public class TagReader {
             switch (entry.type()) {
             case Compound:
                 NBTCompound compound = (NBTCompound) entry;
-                return new CompoundContext(compound.iterator(), valueVisitor.visitCompound());
+                return new CompoundContext(compound.entrySet().iterator(), valueVisitor.visitCompound());
             case End:
             case Byte:
             case Short:

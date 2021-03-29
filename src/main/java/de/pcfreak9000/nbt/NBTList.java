@@ -29,6 +29,10 @@ public class NBTList extends NBTTag {
         return unmodTags;
     }
     
+    public boolean isEmpty() {
+        return tags.isEmpty();
+    }
+    
     public void add(byte b) {
         check(NBTType.Byte);
         tags.add(new ByteEntry(b));
@@ -77,7 +81,7 @@ public class NBTList extends NBTTag {
         tags.add(new StringEntry(s));
     }
     
-    void add(NBTTag tag) {
+    public void add(NBTTag tag) {
         Objects.requireNonNull(tag);
         check(tag.type());
         tags.add(tag);

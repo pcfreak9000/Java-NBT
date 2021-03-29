@@ -4,9 +4,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Set;
 
-public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NBTTag>> {//Hmm, really implement that?
+public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NBTTag>> {//Hmm, really implement that? No. -> Deprecated
     
     private static final String NAME_REGEX = "^[\\w\\d][\\w\\d ]*$";
     
@@ -124,7 +126,7 @@ public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NB
         return def;
     }
     
-    public NBTCompound getNode(String name) {
+    public NBTCompound getCompound(String name) {
         checkNameValid(name);
         NBTTag de = entries.get(name);
         if (de instanceof NBTCompound) {
@@ -133,11 +135,32 @@ public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NB
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
-    public NBTCompound getNodeOrDefault(String name, NBTCompound def) {
+    public NBTCompound getCompoundOrDefault(String name, NBTCompound def) {
         checkNameValid(name);
         NBTTag de = entries.get(name);
         if (de instanceof NBTCompound) {
             return (NBTCompound) de;
+        }
+        if (de == null) {
+            return def;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public NBTList getList(String name) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTList) {
+            return (NBTList) de;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public NBTList getListOrDefault(String name, NBTList def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTList) {
+            return (NBTList) de;
         }
         if (de == null) {
             return def;
@@ -291,6 +314,11 @@ public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NB
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
+    public Set<Entry<String, NBTTag>> entrySet() {
+        return entriesImmutable.entrySet();
+    }
+    
+    @Deprecated
     @Override
     public Iterator<Map.Entry<String, NBTTag>> iterator() {
         return entriesImmutable.entrySet().iterator();
