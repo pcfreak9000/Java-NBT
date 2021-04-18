@@ -29,6 +29,10 @@ public class NBTCompound extends NBTTag {
         return c;
     }
     
+    public boolean isEmpty() {
+        return entries.isEmpty();
+    }
+    
     public boolean hasKey(String name) {
         return entries.containsKey(name);
     }
