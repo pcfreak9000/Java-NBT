@@ -1,5 +1,7 @@
 package de.pcfreak9000.nbt;
 
+import java.util.Arrays;
+
 import de.pcfreak9000.nbt.visitor.NBTValueVisitor;
 
 public abstract class NBTTag {
@@ -19,6 +21,8 @@ public abstract class NBTTag {
         return this.type;
     }
     
+    public abstract NBTTag cpy();
+    
     public static class ByteEntry extends NBTTag {
         
         private final byte i;
@@ -35,6 +39,11 @@ public abstract class NBTTag {
         @Override
         public void accept(NBTValueVisitor visitor) {
             visitor.visitByte(i);
+        }
+        
+        @Override
+        public ByteEntry cpy() {
+            return new ByteEntry(i);
         }
     }
     
@@ -55,6 +64,11 @@ public abstract class NBTTag {
         public void accept(NBTValueVisitor visitor) {
             visitor.visitShort(i);
         }
+        
+        @Override
+        public ShortEntry cpy() {
+            return new ShortEntry(i);
+        }
     }
     
     public static class IntEntry extends NBTTag {
@@ -73,6 +87,11 @@ public abstract class NBTTag {
         @Override
         public void accept(NBTValueVisitor visitor) {
             visitor.visitInt(i);
+        }
+        
+        @Override
+        public IntEntry cpy() {
+            return new IntEntry(i);
         }
     }
     
@@ -93,6 +112,11 @@ public abstract class NBTTag {
         public void accept(NBTValueVisitor visitor) {
             visitor.visitLong(i);
         }
+        
+        @Override
+        public LongEntry cpy() {
+            return new LongEntry(i);
+        }
     }
     
     public static class FloatEntry extends NBTTag {
@@ -111,6 +135,11 @@ public abstract class NBTTag {
         @Override
         public void accept(NBTValueVisitor visitor) {
             visitor.visitFloat(i);
+        }
+        
+        @Override
+        public FloatEntry cpy() {
+            return new FloatEntry(i);
         }
     }
     
@@ -131,6 +160,11 @@ public abstract class NBTTag {
         public void accept(NBTValueVisitor visitor) {
             visitor.visitDouble(i);
         }
+        
+        @Override
+        public DoubleEntry cpy() {
+            return new DoubleEntry(i);
+        }
     }
     
     public static class ByteArrayEntry extends NBTTag {
@@ -149,6 +183,11 @@ public abstract class NBTTag {
         @Override
         public void accept(NBTValueVisitor visitor) {
             visitor.visitByteArray(this.value);
+        }
+        
+        @Override
+        public ByteArrayEntry cpy() {
+            return new ByteArrayEntry(Arrays.copyOf(value, value.length));//Hmmm... continue with the original byte[] or copy it?
         }
     }
     
@@ -169,6 +208,11 @@ public abstract class NBTTag {
         public void accept(NBTValueVisitor visitor) {
             visitor.visitIntArray(this.value);
         }
+        
+        @Override
+        public IntArrayEntry cpy() {
+            return new IntArrayEntry(Arrays.copyOf(value, value.length));
+        }
     }
     
     public static class LongArrayEntry extends NBTTag {
@@ -188,6 +232,11 @@ public abstract class NBTTag {
         public void accept(NBTValueVisitor visitor) {
             visitor.visitLongArray(this.value);
         }
+        
+        @Override
+        public LongArrayEntry cpy() {
+            return new LongArrayEntry(Arrays.copyOf(value, value.length));
+        }
     }
     
     public static class StringEntry extends NBTTag {
@@ -206,6 +255,11 @@ public abstract class NBTTag {
         @Override
         public void accept(NBTValueVisitor visitor) {
             visitor.visitString(string);
+        }
+        
+        @Override
+        public StringEntry cpy() {
+            return new StringEntry(string);
         }
         
         public static String escape(String s) {
@@ -248,5 +302,9 @@ public abstract class NBTTag {
             visitor.visitEnd();
         }
         
+        @Override
+        public NBTTag cpy() {
+            return new EndEntry();
+        }
     }
 }

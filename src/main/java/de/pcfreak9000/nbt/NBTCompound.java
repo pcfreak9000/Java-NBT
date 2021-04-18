@@ -1,14 +1,13 @@
 package de.pcfreak9000.nbt;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 
-public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NBTTag>> {//Hmm, really implement that? No. -> Deprecated
+public class NBTCompound extends NBTTag {
     
     private static final String NAME_REGEX = "^[\\w\\d][\\w\\d ]*$";
     
@@ -19,6 +18,15 @@ public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NB
         super(NBTType.Compound);
         this.entries = new LinkedHashMap<>();
         this.entriesImmutable = Collections.unmodifiableMap(this.entries);
+    }
+    
+    @Override
+    public NBTCompound cpy() {
+        NBTCompound c = new NBTCompound();
+        for (Map.Entry<String, NBTTag> e : this.entries.entrySet()) {
+            c.put(e.getKey(), e.getValue().cpy());
+        }
+        return c;
     }
     
     public boolean hasKey(String name) {
@@ -316,12 +324,6 @@ public class NBTCompound extends NBTTag implements Iterable<Map.Entry<String, NB
     
     public Set<Entry<String, NBTTag>> entrySet() {
         return entriesImmutable.entrySet();
-    }
-    
-    @Deprecated
-    @Override
-    public Iterator<Map.Entry<String, NBTTag>> iterator() {
-        return entriesImmutable.entrySet().iterator();
     }
     
     private static final String EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT = "Entry does not exist or is not of the requested type";

@@ -8,7 +8,7 @@ import java.util.Objects;
 public class NBTList extends NBTTag {
     
     private final List<NBTTag> tags;
-    private final List<NBTTag> unmodTags;
+    private final List<NBTTag> tagsImmutable;
     private final NBTType entrytype;
     
     public NBTList(NBTType type) {
@@ -17,8 +17,17 @@ public class NBTList extends NBTTag {
             throw new IllegalArgumentException("Lists of End tags not allowed");
         }
         this.tags = new ArrayList<>();
-        this.unmodTags = Collections.unmodifiableList(this.tags);
+        this.tagsImmutable = Collections.unmodifiableList(this.tags);
         this.entrytype = type;
+    }
+    
+    @Override
+    public NBTList cpy() {
+        NBTList l = new NBTList(entrytype);
+        for (NBTTag t : tags) {
+            l.add(t.cpy());
+        }
+        return l;
     }
     
     public NBTType getEntryType() {
@@ -30,7 +39,7 @@ public class NBTList extends NBTTag {
     }
     
     public List<NBTTag> getContent() {
-        return unmodTags;
+        return tagsImmutable;
     }
     
     public boolean isEmpty() {
