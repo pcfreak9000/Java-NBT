@@ -226,6 +226,29 @@ public class NBTCompound extends NBTTag {
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
+    public short getShort(String name) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.ShortEntry) {
+            NBTTag.ShortEntry ie = (NBTTag.ShortEntry) de;
+            return ie.getShort();
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public short getShortOrDefault(String name, short def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.ShortEntry) {
+            NBTTag.ShortEntry ie = (NBTTag.ShortEntry) de;
+            return ie.getShort();
+        }
+        if (de == null) {
+            return def;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
     public int getInt(String name) {
         checkNameValid(name);
         NBTTag de = entries.get(name);
