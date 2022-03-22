@@ -51,73 +51,87 @@ public class NBTCompound extends NBTTag {
     
     public void put(String name, NBTTag entry) {
         checkNameValid(name);
-        checkNameExists(name);
         Objects.requireNonNull(entry);
         entries.put(name, entry);
     }
     
     public void putByte(String name, byte i) {
         checkNameValid(name);
-        checkNameExists(name);
         entries.put(name, new NBTTag.ByteEntry(i));
     }
     
     public void putShort(String name, short i) {
         checkNameValid(name);
-        checkNameExists(name);
         entries.put(name, new NBTTag.ShortEntry(i));
     }
     
     public void putInt(String name, int i) {
         checkNameValid(name);
-        checkNameExists(name);
         entries.put(name, new NBTTag.IntEntry(i));
     }
     
     public void putLong(String name, long i) {
         checkNameValid(name);
-        checkNameExists(name);
         entries.put(name, new NBTTag.LongEntry(i));
     }
     
     public void putFloat(String name, float i) {
         checkNameValid(name);
-        checkNameExists(name);
         entries.put(name, new NBTTag.FloatEntry(i));
     }
     
     public void putDouble(String name, double i) {
         checkNameValid(name);
-        checkNameExists(name);
         entries.put(name, new NBTTag.DoubleEntry(i));
     }
     
     public void putString(String name, String string) {
         checkNameValid(name);
-        checkNameExists(name);
         Objects.requireNonNull(string);
         entries.put(name, new NBTTag.StringEntry(string));
     }
     
     public void putByteArray(String name, byte[] immutableBytes) {
         checkNameValid(name);
-        checkNameExists(name);
         Objects.requireNonNull(immutableBytes);
         entries.put(name, new ByteArrayEntry(immutableBytes));
     }
     
     public void putIntArray(String name, int[] immutableints) {
         checkNameValid(name);
-        checkNameExists(name);
         Objects.requireNonNull(immutableints);
         entries.put(name, new IntArrayEntry(immutableints));
     }
     
     public void putLongArray(String name, long[] immutablelongs) {
         checkNameValid(name);
-        checkNameExists(name);
         Objects.requireNonNull(immutablelongs);
         entries.put(name, new LongArrayEntry(immutablelongs));
+    }
+    
+    public void putIntegerSmart(String name, long value) {
+        if (value == (byte) value) {
+            putByte(name, (byte) value);
+        } else if (value == (short) value) {
+            putShort(name, (short) value);
+        } else if (value == (int) value) {
+            putInt(name, (int) value);
+        } else {
+            putLong(name, value);
+        }
+    }
+    
+    public long getIntegerSmart(String name) {
+        NBTTag t = get(name);
+        if (t instanceof NBTTag.ByteEntry) {
+            return getByte(name);
+        } else if (t instanceof NBTTag.ShortEntry) {
+            return getShort(name);
+        } else if (t instanceof NBTTag.IntEntry) {
+            return getInt(name);
+        } else {
+            return getLong(name);
+        }
     }
     
     public NBTTag get(String name) {
@@ -362,12 +376,6 @@ public class NBTCompound extends NBTTag {
         }
         if (!name.matches(NAME_REGEX)) {
             throw new IllegalArgumentException("Name containes illegal characters: " + name);
-        }
-    }
-    
-    private void checkNameExists(String name) {
-        if (entries.containsKey(name)) {
-            throw new IllegalStateException("Name is already in use: " + name);
         }
     }
     
