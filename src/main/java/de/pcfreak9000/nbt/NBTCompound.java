@@ -134,6 +134,10 @@ public class NBTCompound extends NBTTag {
         }
     }
     
+    public void putBooleanAsByte(String name, boolean b) {
+        putByte(name, b ? (byte) 1 : 0);
+    }
+    
     public NBTTag get(String name) {
         checkNameValid(name);
         NBTTag tag = entries.get(name);
@@ -225,6 +229,14 @@ public class NBTCompound extends NBTTag {
             return ie.getByte();
         }
         throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public boolean getBooleanFromByte(String name) {
+        return getByte(name) != 0;
+    }
+    
+    public boolean getBooleanFromByteOrDefault(String name, boolean b) {
+        return getByteOrDefault(name, b ? (byte) 1 : 0) != 0;
     }
     
     public byte getByteOrDefault(String name, byte def) {
@@ -326,6 +338,29 @@ public class NBTCompound extends NBTTag {
         if (de instanceof NBTTag.FloatEntry) {
             NBTTag.FloatEntry ie = (NBTTag.FloatEntry) de;
             return ie.getFloat();
+        }
+        if (de == null) {
+            return def;
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public double getDouble(String name) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.DoubleEntry) {
+            NBTTag.DoubleEntry ie = (NBTTag.DoubleEntry) de;
+            return ie.getDouble();
+        }
+        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+    }
+    
+    public double getDoubleOrDefault(String name, double def) {
+        checkNameValid(name);
+        NBTTag de = entries.get(name);
+        if (de instanceof NBTTag.DoubleEntry) {
+            NBTTag.DoubleEntry ie = (NBTTag.DoubleEntry) de;
+            return ie.getDouble();
         }
         if (de == null) {
             return def;
