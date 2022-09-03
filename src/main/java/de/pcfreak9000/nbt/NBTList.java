@@ -7,17 +7,21 @@ import java.util.Objects;
 
 public class NBTList extends NBTTag {
     
-    private final List<NBTTag> tags;
+    protected final List<NBTTag> tags;
     private final List<NBTTag> tagsImmutable;
-    private final NBTType entrytype;
+    protected NBTType entrytype;
+    
+    protected NBTList() {
+        super(NBTType.List);
+        this.tags = new ArrayList<>();
+        this.tagsImmutable = Collections.unmodifiableList(this.tags);
+    }
     
     public NBTList(NBTType type) {
-        super(NBTType.List);
+        this();
         if (type == NBTType.End) {
             throw new IllegalArgumentException("Lists of End tags not allowed");
         }
-        this.tags = new ArrayList<>();
-        this.tagsImmutable = Collections.unmodifiableList(this.tags);
         this.entrytype = type;
     }
     
@@ -59,6 +63,7 @@ public class NBTList extends NBTTag {
         }
     }
     
+    //Prunes the input to match the entrytype
     public void addNumberAutocast(long l) {
         switch (entrytype) {
         case Byte:
@@ -179,7 +184,7 @@ public class NBTList extends NBTTag {
         return (NBTList) get(index);
     }
     
-    private void check(NBTType t) {
+    protected void check(NBTType t) {
         if (t != this.entrytype) {
             throw new IllegalArgumentException("Illegal type: " + t);
         }

@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import de.pcfreak9000.nbt.NBTCompound;
 import de.pcfreak9000.nbt.NBTList;
+import de.pcfreak9000.nbt.NBTSmartIntList;
 import de.pcfreak9000.nbt.NBTType;
 import de.pcfreak9000.nbt.NbtReader;
 import de.pcfreak9000.nbt.NbtWriter;
@@ -34,6 +35,46 @@ public class LibraryTest {
         for (int i = 0; i < TESTBYTES.length; i++) {
             TESTBYTES[i] = (byte) i;
         }
+    }
+    
+    @Test
+    public void testSmartListSerialization() throws Exception {
+        NBTSmartIntList l = new NBTSmartIntList();
+        l.addSmartInt(123);
+        l.addSmartInt(1234);
+        NBTCompound nbtc = new NBTCompound();
+        nbtc.putList("list", l);
+        try (NbtWriter writer = new NbtWriter(new FileOutputStream("tmp.dat"))) {
+            nbtc.accept(writer);
+        }
+        NBTCompound read;
+        try (NbtReader reader = new NbtReader(new FileInputStream("tmp.dat"))) {
+            read = reader.toCompoundTag();
+        }
+        NBTList rl = read.getList("list");
+        assertEquals(l.getNumberAutocast(0), rl.getNumberAutocast(0));
+        assertEquals(l.getNumberAutocast(1), rl.getNumberAutocast(1));
+        assertEquals(rl.getEntryType(), NBTType.Short);
+    }
+    
+    @Test
+    public void testSmartListType() {
+        NBTSmartIntList l = new NBTSmartIntList();
+        assertEquals(l.getEntryType(), NBTType.Byte);
+        l.addSmartInt(5);
+        assertEquals(l.getEntryType(), NBTType.Byte);
+        l.addSmartInt(-5);
+        assertEquals(l.getEntryType(), NBTType.Byte);
+        l.addSmartInt(2500);
+        assertEquals(l.getEntryType(), NBTType.Short);
+        l.addSmartInt(-5);
+        assertEquals(l.getEntryType(), NBTType.Short);
+        l.addSmartInt(-200000);
+        assertEquals(l.getEntryType(), NBTType.Int);
+        l.addSmartInt(123123123123123L);
+        assertEquals(l.getEntryType(), NBTType.Long);
+        l.addSmartInt(2);
+        assertEquals(l.getEntryType(), NBTType.Long);
     }
     
     @Test
