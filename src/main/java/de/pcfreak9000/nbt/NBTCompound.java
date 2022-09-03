@@ -134,6 +134,22 @@ public class NBTCompound extends NBTTag {
         }
     }
     
+    public long getIntegerSmartOrDefault(String name, long def) {
+        NBTTag t = get(name);
+        if (t == null) {
+            return def;
+        }
+        if (t instanceof NBTTag.ByteEntry) {
+            return getByte(name);
+        } else if (t instanceof NBTTag.ShortEntry) {
+            return getShort(name);
+        } else if (t instanceof NBTTag.IntEntry) {
+            return getInt(name);
+        } else {
+            return getLong(name);
+        }
+    }
+    
     public void putBooleanAsByte(String name, boolean b) {
         putByte(name, b ? (byte) 1 : 0);
     }
@@ -400,6 +416,10 @@ public class NBTCompound extends NBTTag {
     
     public Set<Entry<String, NBTTag>> entrySet() {
         return entriesImmutable.entrySet();
+    }
+    
+    public Set<String> keySet() {
+        return entriesImmutable.keySet();
     }
     
     private static final String EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT = "Entry does not exist or is not of the requested type";

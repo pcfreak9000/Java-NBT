@@ -46,6 +46,36 @@ public class NBTList extends NBTTag {
         return tags.isEmpty();
     }
     
+    public long getNumberAutocast(int index) {
+        switch (entrytype) {
+        case Byte:
+            return getByte(index);
+        case Short:
+            return getShort(index);
+        case Int:
+            return getInt(index);
+        default:
+            return getLong(index);
+        }
+    }
+    
+    public void addNumberAutocast(long l) {
+        switch (entrytype) {
+        case Byte:
+            addByte((byte) l);
+            break;
+        case Short:
+            addShort((short) l);
+            break;
+        case Int:
+            addInt((int) l);
+            break;
+        default:
+            addLong(l);
+            break;
+        }
+    }
+    
     public void addByte(byte b) {
         check(NBTType.Byte);
         tags.add(new ByteEntry(b));
