@@ -161,7 +161,7 @@ public class NBTCompound extends NBTTag {
         if (tag != null) {
             return tag;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public NBTTag getOrDefault(String name, NBTTag def) {
@@ -179,7 +179,7 @@ public class NBTCompound extends NBTTag {
         if (de instanceof NBTCompound) {
             return (NBTCompound) de;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public NBTCompound getCompoundOrDefault(String name, NBTCompound def) {
@@ -191,7 +191,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public NBTList getList(String name) {
@@ -200,7 +200,7 @@ public class NBTCompound extends NBTTag {
         if (de instanceof NBTList) {
             return (NBTList) de;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public NBTList getListOrDefault(String name, NBTList def) {
@@ -212,7 +212,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public String getString(String name) {
@@ -222,7 +222,7 @@ public class NBTCompound extends NBTTag {
             NBTTag.StringEntry se = (NBTTag.StringEntry) de;
             return se.getString();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public String getStringOrDefault(String name, String def) {
@@ -235,7 +235,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public byte getByte(String name) {
@@ -245,7 +245,7 @@ public class NBTCompound extends NBTTag {
             NBTTag.ByteEntry ie = (NBTTag.ByteEntry) de;
             return ie.getByte();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public boolean getBooleanFromByte(String name) {
@@ -266,7 +266,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public short getShort(String name) {
@@ -276,7 +276,7 @@ public class NBTCompound extends NBTTag {
             NBTTag.ShortEntry ie = (NBTTag.ShortEntry) de;
             return ie.getShort();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public short getShortOrDefault(String name, short def) {
@@ -289,7 +289,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public int getInt(String name) {
@@ -299,7 +299,7 @@ public class NBTCompound extends NBTTag {
             NBTTag.IntEntry ie = (NBTTag.IntEntry) de;
             return ie.getInt();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public int getIntOrDefault(String name, int def) {
@@ -312,7 +312,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public long getLong(String name) {
@@ -322,7 +322,7 @@ public class NBTCompound extends NBTTag {
             NBTTag.LongEntry le = (NBTTag.LongEntry) de;
             return le.getLong();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public long getLongOrDefault(String name, long def) {
@@ -335,7 +335,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
         
     }
     
@@ -346,7 +346,7 @@ public class NBTCompound extends NBTTag {
             NBTTag.FloatEntry ie = (NBTTag.FloatEntry) de;
             return ie.getFloat();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public float getFloatOrDefault(String name, float def) {
@@ -359,7 +359,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public double getDouble(String name) {
@@ -369,7 +369,7 @@ public class NBTCompound extends NBTTag {
             NBTTag.DoubleEntry ie = (NBTTag.DoubleEntry) de;
             return ie.getDouble();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public double getDoubleOrDefault(String name, double def) {
@@ -382,7 +382,7 @@ public class NBTCompound extends NBTTag {
         if (de == null) {
             return def;
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public byte[] getByteArray(String string) {
@@ -392,7 +392,7 @@ public class NBTCompound extends NBTTag {
             ByteArrayEntry bae = (ByteArrayEntry) t;
             return bae.getBytes();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public int[] getIntArray(String string) {
@@ -402,7 +402,7 @@ public class NBTCompound extends NBTTag {
             IntArrayEntry bae = (IntArrayEntry) t;
             return bae.getInts();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public long[] getLongArray(String string) {
@@ -412,7 +412,7 @@ public class NBTCompound extends NBTTag {
             LongArrayEntry bae = (LongArrayEntry) t;
             return bae.getLongs();
         }
-        throw new IllegalArgumentException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
+        throw new NBTTypeException(EXCEPTION_NOTEXIST_INCORRECTTYPE_TEXT);
     }
     
     public Set<Entry<String, NBTTag>> entrySet() {
