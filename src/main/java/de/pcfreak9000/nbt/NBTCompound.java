@@ -135,7 +135,8 @@ public class NBTCompound extends NBTTag {
     }
     
     public long getIntegerSmartOrDefault(String name, long def) {
-        NBTTag t = get(name);
+        checkNameValid(name);
+        NBTTag t = entries.get(name);
         if (t == null) {
             return def;
         }
