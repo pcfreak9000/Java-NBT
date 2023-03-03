@@ -37,8 +37,20 @@ public class NBTCompound extends NBTTag {
         return entries.containsKey(name);
     }
     
-    public void remove(String name) {
-        entries.remove(name);
+    public NBTTag remove(String name) {
+        return entries.remove(name);
+    }
+    
+    public NBTTag remove(String name, NBTType type) {
+        NBTTag tag = entries.get(name);
+        if (tag != null && tag.type() == type) {
+            return entries.remove(name);
+        }
+        return null;
+    }
+    
+    public void removeAll() {
+        entries.clear();
     }
     
     public void putCompound(String name, NBTCompound compound) {
